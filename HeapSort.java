@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class ModifiedSortingAlgorithm {
+public class HeapSort {
 
     public static void modifiedSort(int[] input) {
         // Find the maximum and minimum values in the array
