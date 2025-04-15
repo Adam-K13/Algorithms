@@ -1,4 +1,6 @@
-public class NewSortAlgorithm {
+import java.util.Arrays;
+
+public class NewSortAlgorithm implements SortingAlgorithm {
 
     /**
      * Implements the new sorting algorithm.
@@ -6,12 +8,16 @@ public class NewSortAlgorithm {
      * Finally, it reconstructs the sorted array by processing negatives,
      * zeros, and positives separately.
      */
-    public static int[] newSort(int[] input) {
+    @Override
+    public int[] sort(int[] input) {
+        // We work on a copy to preserve the original array
+        int[] sorted = input.clone();
+        
         // ***** ALGORITHM 1: First part - Scan and count *****
         // 1. Find maximum and minimum values in the input.
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
-        for (int num : input) {
+        for (int num : sorted) {
             if (num > max) max = num;
             if (num < min) min = num;
         }
@@ -30,7 +36,7 @@ public class NewSortAlgorithm {
 
         // 3. Traverse the input and count occurrences.
         // This loop corresponds to the "for x in input[n]" block in the pseudo-code.
-        for (int num : input) {
+        for (int num : sorted) {
             if (num == 0) {
                 // If the element is zero.
                 zeroCount++;
@@ -46,7 +52,6 @@ public class NewSortAlgorithm {
 
         // ***** ALGORITHM 2: Second part - Reconstruct and output the sorted array *****
         // Create the resulting sorted array.
-        int[] sorted = new int[input.length];
         int index = 0;
 
         // 1. Process negative numbers.
@@ -78,19 +83,9 @@ public class NewSortAlgorithm {
         // Return the sorted array.
         return sorted;
     }
-
     public static void main(String[] args) {
-        // Example input (feel free to modify)
-        int[] input = {4, -2, 1, 0, -3, 2, 3, -1};
-
-        // Call the sorting algorithm.
-        int[] sorted = newSort(input);
-
-        // Print the sorted array.
-        System.out.println("Sorted Array:");
-        for (int num : sorted) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
+        int[] input = new NewSortAlgorithm().sampleArray();
+        int[] sorted = new NewSortAlgorithm().sort(input);
+        System.out.println(Arrays.toString(sorted));  
     }
 }

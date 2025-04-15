@@ -1,13 +1,15 @@
-import java.util.*;
+import java.util.Arrays;
 
-public class SuperMergeSort {
+public class SuperMergeSort implements SortingAlgorithm {
 
-    public static void sort(int[] input) {
-        int n = input.length;
+    @Override
+    public int[] sort(int[] input) {
+        int[] result = input.clone(); // Work on a copy to preserve original
+        int n = result.length;
 
         // Step 1: Find max and min
-        int max = input[0], min = input[0];
-        for (int value : input) {
+        int max = result[0], min = result[0];
+        for (int value : result) {
             if (value > max) max = value;
             if (value < min) min = value;
         }
@@ -15,16 +17,16 @@ public class SuperMergeSort {
         int offset = -min; // To shift negatives into positive indices
 
         // Step 2: Declare arrays
-        int t = 0;                      // For zero count
+        int zeroCount = 0;                      // For zero count
         int[] countp = new int[max + 1];           // For positive values
         int[] countn = new int[offset + 1];        // For negative values
 
         // Step 3: Process input values
         for (int x = 0; x < n; x++) {
-            int val = input[x];
+            int val = result[x];
 
             if (val == 0) {
-                t++;
+                zeroCount++;
             } else if (val > 0) {
                 countp[val]++;
             } else { // val < 0
@@ -33,46 +35,34 @@ public class SuperMergeSort {
             }
         }
 
-        // Step 4: Output sorted array
+        // Step 4: Create sorted array
+        int index = 0;
 
-        // Print sorted negative values from smallest to largest
+        // Add sorted negative values from smallest to largest
         for (int i = 0; i <= offset; i++) {
             int value = -offset + i;  // Convert index back to original negative value
             for (int j = 0; j < countn[i]; j++) {
-                System.out.print(value + " ");
+                result[index++] = value;
             }
         }
 
-        // Print zeros
-        for (int i = 0; i < t; i++) {
-            System.out.print("0 ");
+        // Add zeros
+        for (int i = 0; i < zeroCount; i++) {
+            result[index++] = 0;
         }
 
-        // Print sorted positive values
+        // Add sorted positive values
         for (int i = 0; i <= max; i++) {
             for (int j = 0; j < countp[i]; j++) {
-                System.out.print(i + " ");
+                result[index++] = i;
             }
         }
 
-        System.out.println(); // newline
+        return result;
     }
-
-
-    public static int[] generateRandomArray(int size) {
-        int[] array = new int[size];
-        Random rand = new Random();
-
-        for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(17) - 8;  // Generates value from -8 to 8
-        }
-
-        return array;
-    }
-
     public static void main(String[] args) {
-        int[] input = generateRandomArray(1000000);  // example input
-        sort(input);  // Expected: -3 -3 -1 0 0 2 2 4
+        int[] input = new SuperMergeSort().sampleArray();
+        int[] sorted = new SuperMergeSort().sort(input);
+        System.out.println(Arrays.toString(sorted));  
     }
 }
-
