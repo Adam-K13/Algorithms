@@ -1,12 +1,14 @@
+import java.util.Arrays;
 import java.util.Random;
 
-public class QuickSort {
+public class QuickSort implements SortingAlgorithm {
 
-    private static void quicksort(int[] array) {
-        quicksort(array, 0, array.length - 1);
+    @Override
+    public int[] sort(int[] input) {
+        quickSort(input, 0, input.length-1);
+        return input;
     }
-
-    private static void quicksort(int[] array, int lowIndex, int highIndex) {
+    private static void quickSort(int[] array, int lowIndex, int highIndex) {
 
         if (lowIndex >= highIndex) {
             return;
@@ -18,9 +20,8 @@ public class QuickSort {
 
         int leftPointer = partition(array, lowIndex, highIndex, pivot);
 
-        quicksort(array, lowIndex, leftPointer - 1);
-        quicksort(array, leftPointer + 1, highIndex);
-
+        quickSort(array, lowIndex, leftPointer - 1);
+        quickSort(array, leftPointer + 1, highIndex);
     }
 
     private static int partition(int[] array, int lowIndex, int highIndex, int pivot) {
@@ -28,20 +29,14 @@ public class QuickSort {
         int rightPointer = highIndex - 1;
 
         while (leftPointer < rightPointer) {
-
-            // go from the left until we find a number greater than the pivot, or hit the right pointer.
             while (array[leftPointer] <= pivot && leftPointer < rightPointer) {
                 leftPointer++;
             }
-
-            // go from the right until we find a number less than the pivot, or hit the left pointer.
             while (array[rightPointer] >= pivot && leftPointer < rightPointer) {
                 rightPointer--;
             }
-
             swap(array, leftPointer, rightPointer);
         }
-
         if(array[leftPointer] > array[highIndex]) {
             swap(array, leftPointer, highIndex);
         }
@@ -58,27 +53,10 @@ public class QuickSort {
         array[index2] = temp;
     }
 
-    private static void printArray(int[] numbers) {
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.println(numbers[i]);
-        }
-    }
-
-
     public static void main(String[] args) {
-        Random rand = new Random();
-        int[] numbers = new int[10];
-
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = rand.nextInt(100);
-        }
-
-        System.out.println("Before:");
-        printArray(numbers);
-
-        quicksort(numbers);
-
-        System.out.println("\nAfter:");
-        printArray(numbers);
+        int[] input = new QuickSort().sampleArray();
+        int[] sorted = new QuickSort().sort(input);
+        System.out.println(Arrays.toString(sorted));
     }
+
 }
