@@ -49,7 +49,7 @@ public class MergeSort implements SortingAlgorithm {
 
     public static void main(String[] args) {
         int[] input = new MergeSort().sampleArray();
-        int[] sorted = new MergeSort().sort(input);
+        int[] sorted = new MergeSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));
     }
 

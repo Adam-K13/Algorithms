@@ -25,7 +25,7 @@ public class SelectionSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new SelectionSort().sampleArray();
-        int[] sorted = new SelectionSort().sort(input);
+        int[] sorted = new SelectionSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));
     }
 

@@ -20,7 +20,7 @@ public class BubbleSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new BubbleSort().sampleArray();
-        int[] sorted = new BubbleSort().sort(input);
+        int[] sorted = new BubbleSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));
     }
 }

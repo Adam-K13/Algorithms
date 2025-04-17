@@ -18,7 +18,7 @@ public class InsertionSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new InsertionSort().sampleArray();
-        int[] sorted = new InsertionSort().sort(input);
+        int[] sorted = new InsertionSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));
     }
 

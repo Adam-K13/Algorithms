@@ -62,7 +62,7 @@ public class SuperMergeSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new SuperMergeSort().sampleArray();
-        int[] sorted = new SuperMergeSort().sort(input);
+        int[] sorted = new SuperMergeSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));  
     }
 }

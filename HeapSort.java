@@ -54,7 +54,7 @@ public class HeapSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new HeapSort().sampleArray();
-        int[] sorted = new HeapSort().sort(input);
+        int[] sorted = new HeapSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));  
     }
 

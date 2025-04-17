@@ -55,7 +55,7 @@ public class QuickSort implements SortingAlgorithm {
 
     public static void main(String[] args) {
         int[] input = new QuickSort().sampleArray();
-        int[] sorted = new QuickSort().sort(input);
+        int[] sorted = new QuickSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));
     }
 

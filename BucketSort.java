@@ -55,7 +55,7 @@ public class BucketSort implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new BucketSort().sampleArray();
-        int[] sorted = new BucketSort().sort(input);
+        int[] sorted = new BucketSort().timeSort(input);
         System.out.println(Arrays.toString(sorted));  
     }
 }
