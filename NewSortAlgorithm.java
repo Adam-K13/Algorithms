@@ -85,7 +85,7 @@ public class NewSortAlgorithm implements SortingAlgorithm {
     }
     public static void main(String[] args) {
         int[] input = new NewSortAlgorithm().sampleArray();
-        int[] sorted = new NewSortAlgorithm().sort(input);
+        int[] sorted = new NewSortAlgorithm().timeSort(input);
         System.out.println(Arrays.toString(sorted));  
     }
 }
