@@ -29,7 +29,7 @@ public class Main {
             testArrays.put(size, arrayGenerator.generateRandomArray(size));
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_benchmark.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_benchmark_mac.csv"))) {
             // Write CSV header with both time units
             writer.write("Algorithm,Array Size,Time (ms),Time (s)\n");
 
