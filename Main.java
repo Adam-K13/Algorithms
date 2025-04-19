@@ -1,15 +1,22 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
+    // Generate a random array of given size, with values in [-8, 8]
+    public static int[] generateRandomArray(int size) {
+        int[] array = new int[size];
+        Random rand = new Random();
+        for (int i = 0; i < size; i++) {
+            array[i] = rand.nextInt(17) - 8;
+        }
+        return array;
+    }
+
     public static void main(String[] args) {
-        // Define test parameters
+        // Test sizes and algorithms
         int[] testSizes = {10, 100, 1000, 10000, 100000};
         List<SortingAlgorithm> algorithms = Arrays.asList(
                 new QuickSort(),
@@ -20,49 +27,54 @@ public class Main {
                 new InsertionSort(),
                 new SelectionSort(),
                 new SuperMergeSort()
-
         );
 
-        // Pre-generate test arrays for fair comparison
-        Map<Integer, int[]> testArrays = new HashMap<>();
-        SortingAlgorithm arrayGenerator = new QuickSort();
+        // Pre-generate one master array per size
+        Map<Integer,int[]> testArrays = new HashMap<>();
         for (int size : testSizes) {
-            testArrays.put(size, arrayGenerator.generateRandomArray(size));
+            testArrays.put(size, generateRandomArray(size));
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_benchmark.csv"))) {
-            // Write CSV header with both time units
-            writer.write("Algorithm,Array Size,Time (ms),Time (s)\n");
+        final int TRIALS = 30;
+        String outFile = "30_sorting_benchmarks.csv";
 
-            // Test each algorithm
-            for (SortingAlgorithm algorithm : algorithms) {
-                String algorithmName = algorithm.getClass().getSimpleName();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
+            // Write CSV header
+            StringBuilder header = new StringBuilder("Algorithm,Array Size");
+            for (int t = 1; t <= TRIALS; t++) {
+                header.append(",Run ").append(t).append(" (ms)");
+            }
+            writer.write(header.toString());
+            writer.newLine();
 
-                // Test each array size
+            // For each algorithm and size...
+            for (SortingAlgorithm algo : algorithms) {
+                String name = algo.getClass().getSimpleName();
                 for (int size : testSizes) {
-                    // Get a fresh copy of the test array
-                    int[] inputArray = Arrays.copyOf(testArrays.get(size), size);
+                    // Prepare a row
+                    StringBuilder row = new StringBuilder();
+                    row.append(name).append(",").append(size);
 
-                    // Time measurement
-                    long startTime = System.nanoTime();
-                    algorithm.sort(inputArray);
-                    long endTime = System.nanoTime();
+                    // Run 30 trials
+                    for (int t = 0; t < TRIALS; t++) {
+                        // Fresh copy of the master array
+                        int[] input = Arrays.copyOf(testArrays.get(size), size);
 
-                    // Calculate durations
-                    long durationNs = endTime - startTime;
-                    double durationMs = durationNs / 1_000_000.0;
-                    double durationS = durationNs / 1_000_000_000.0;
+                        long start = System.nanoTime();
+                        algo.sort(input);
+                        long end = System.nanoTime();
 
-                    // Write results to CSV with both time formats
-                    writer.write(String.format("%s,%d,%.3f,%.6f\n",
-                            algorithmName,
-                            size,
-                            durationMs,
-                            durationS));
+                        double ms = (end - start) / 1_000_000.0;
+                        row.append(",").append(String.format("%.3f", ms));
+                    }
+
+                    // Write that row
+                    writer.write(row.toString());
+                    writer.newLine();
                 }
             }
 
-            System.out.println("Benchmark results saved to sorting_benchmark.csv");
+            System.out.println("Benchmark results saved to " + outFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
