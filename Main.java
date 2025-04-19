@@ -20,6 +20,7 @@ public class Main {
                 new InsertionSort(),
                 new SelectionSort(),
                 new SuperMergeSort()
+
         );
 
         // Pre-generate test arrays for fair comparison
@@ -61,7 +62,7 @@ public class Main {
                 }
             }
 
-            System.out.println("Benchmark results saved to old_sorting_benchmark.csv");
+            System.out.println("Benchmark results saved to sorting_benchmark.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }

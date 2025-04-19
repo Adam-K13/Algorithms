@@ -11,10 +11,9 @@ public class BucketSort implements SortingAlgorithm {
             return input.clone();
         }
 
-        // Create a copy of the input array to preserve the original
         int[] result = input.clone();
-        
-        // Find minimum and maximum values
+
+        // Find min/max values
         int minValue = result[0];
         int maxValue = result[0];
         for (int i = 1; i < result.length; i++) {
@@ -25,12 +24,13 @@ public class BucketSort implements SortingAlgorithm {
             }
         }
 
-        // Create buckets (handle negative numbers by shifting)
-        int offset = (minValue < 0) ? -minValue : 0;
+        // Calculate bucket parameters
+        int offset = -minValue;
         int range = maxValue - minValue + 1;
         int bucketCount = Math.max(1, Math.min(range, result.length));
+
+        // Initialize buckets
         List<List<Integer>> buckets = new ArrayList<>(bucketCount);
-        
         for (int i = 0; i < bucketCount; i++) {
             buckets.add(new ArrayList<>());
         }
@@ -38,24 +38,39 @@ public class BucketSort implements SortingAlgorithm {
         // Distribute elements into buckets
         for (int value : result) {
             int shiftedValue = value + offset;
-            int bucketIndex = (int) ((bucketCount * shiftedValue) / (range));
+            int bucketIndex = (int) ((long) bucketCount * shiftedValue / range);
             buckets.get(bucketIndex).add(value);
         }
 
-        // Sort each bucket and put back into result array
-        int currentIndex = 0;
+        // Sort buckets and merge
+        int index = 0;
         for (List<Integer> bucket : buckets) {
-            Collections.sort(bucket);
+            insertionSort(bucket);
             for (int value : bucket) {
-                result[currentIndex++] = value;
+                result[index++] = value;
             }
         }
 
         return result;
     }
+
+    // Insertion sort implementation for buckets
+    private void insertionSort(List<Integer> bucket) {
+        for (int i = 1; i < bucket.size(); i++) {
+            int key = bucket.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && bucket.get(j) > key) {
+                bucket.set(j + 1, bucket.get(j));
+                j--;
+            }
+            bucket.set(j + 1, key);
+        }
+    }
+
     public static void main(String[] args) {
         int[] input = new BucketSort().sampleArray();
         int[] sorted = new BucketSort().timeSort(input);
-        System.out.println(Arrays.toString(sorted));  
+        System.out.println(Arrays.toString(sorted));
     }
 }
