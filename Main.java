@@ -29,7 +29,7 @@ public class Main {
             testArrays.put(size, arrayGenerator.generateRandomArray(size));
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_benchmark_mac.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_benchmark.csv"))) {
             // Write CSV header with both time units
             writer.write("Algorithm,Array Size,Time (ms),Time (s)\n");
 
@@ -61,7 +61,7 @@ public class Main {
                 }
             }
 
-            System.out.println("Benchmark results saved to sorting_benchmark.csv");
+            System.out.println("Benchmark results saved to old_sorting_benchmark.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
