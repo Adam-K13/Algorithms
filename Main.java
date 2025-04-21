@@ -26,7 +26,7 @@ public class Main {
                 new HeapSort(),
                 new InsertionSort(),
                 new SelectionSort(),
-                new SuperMergeSort()
+                new ProposedAlgorithm()
         );
 
         // Pre-generate one master array per size

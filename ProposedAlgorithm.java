@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class SuperMergeSort implements SortingAlgorithm {
+public class ProposedAlgorithm implements SortingAlgorithm {
 
     @Override
     public int[] sort(int[] input) {
@@ -61,8 +61,8 @@ public class SuperMergeSort implements SortingAlgorithm {
         return result;
     }
     public static void main(String[] args) {
-        int[] input = new SuperMergeSort().sampleArray();
-        int[] sorted = new SuperMergeSort().timeSort(input);
+        int[] input = new ProposedAlgorithm().sampleArray();
+        int[] sorted = new  ProposedAlgorithm().timeSort(input);
         System.out.println(Arrays.toString(sorted));  
     }
 }
