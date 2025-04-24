@@ -34,8 +34,8 @@ SelectionSort,100,1.5,0.0015
 SelectionSort,1000,125,0.125
 SelectionSort,10000,1281,1.281
 SelectionSort,100000,42930,42.93
-SuperMergeSort,10,2,0.002
-SuperMergeSort,100,15,0.015
-SuperMergeSort,1000,125,0.125
-SuperMergeSort,10000,968,0.968
-SuperMergeSort,100000,8932,8.932
+ProposedAlgorithm,10,2,0.002
+ProposedAlgorithm,100,15,0.015
+ProposedAlgorithm,1000,125,0.125
+ProposedAlgorithm,10000,968,0.968
+ProposedAlgorithm,100000,8932,8.932

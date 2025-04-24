@@ -34,7 +34,7 @@ public interface SortingAlgorithm {
         Random rand = new Random();
         int[] arr = new int[size];
         for(int i = 0; i < size; i++) {
-            arr[i] = rand.nextInt(17) - 8; // -8 to 8 inclusive
+            arr[i] = rand.nextInt(1000000) - 8; // -8 to 8 inclusive
         }
         return arr;
     }

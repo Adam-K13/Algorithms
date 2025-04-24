@@ -36,7 +36,7 @@ public class Main {
         }
 
         final int TRIALS = 30;
-        String outFile = "30_sorting_benchmarks.csv";
+        String outFile = "30_large_sorting_benchmarks.csv";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
             // Write CSV header
