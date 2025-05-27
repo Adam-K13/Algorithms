@@ -10,14 +10,14 @@ public class Main {
         int[] array = new int[size];
         Random rand = new Random();
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(17) - 8;
+            array[i] = rand.nextInt(2000000001) - 1000000000;
         }
         return array;
     }
 
     public static void main(String[] args) {
         // Test sizes and algorithms
-        int[] testSizes = {10, 100, 1000, 10000, 100000};
+        int[] testSizes = {10, 100, 1000, 10000, 100000, 1000000};
         List<SortingAlgorithm> algorithms = Arrays.asList(
                 new QuickSort(),
                 new BubbleSort(),
@@ -36,7 +36,7 @@ public class Main {
         }
 
         final int TRIALS = 30;
-        String outFile = "30_large_sorting_benchmarks.csv";
+        String outFile = "extBenchmarks.csv";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
             // Write CSV header
@@ -51,7 +51,10 @@ public class Main {
             for (SortingAlgorithm algo : algorithms) {
                 String name = algo.getClass().getSimpleName();
                 for (int size : testSizes) {
-                    // Prepare a row
+                    // Skip QuickSort for 1M elements
+                    if (algo instanceof QuickSort && size == 1000000) {
+                        continue;
+                    }
                     StringBuilder row = new StringBuilder();
                     row.append(name).append(",").append(size);
 
